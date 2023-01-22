@@ -3,80 +3,88 @@ import { useState } from 'react';
 
 const Header = (props) => {
   return (
-    <h1 className='App-header'>{props.course}</h1>
+    <h1 className='header'>{props.name}</h1>
   )
 }
+/*
+const ListOptions = (props) => {
+  const allOptions = [];
 
+  for(let i = 0; i < props.length; i++) {
+    allOptions.push(<option>{props.name}</option>)
+  }
+
+  return(
+    {allOptions}
+  )
+
+}*/
+
+// Based on the example of using react forms from https://www.w3schools.com/react/react_forms.asp
 const Part = (props) => {
-  const [userInput, setUserInput] = useState("");
+  const [selectedOption, setSelectedOption] = useState('');
+  const allOptions = [];
+
+  console.log("In Part: ", props);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`The name you entered was: ${userInput}`)
+    console.log(selectedOption);
+  };
+
+  for(let i = 0; i < props.currencies.length; i++) {
+    allOptions.push(<option key={i}>{props.currencies[i].name}</option>)
   }
-  
+  console.log("After loop: ", allOptions);
+
   return (
     <form onSubmit={handleSubmit}>
-      <label>{props.name}:    
-        <input 
-        type="text"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        />
-      </label>
-      <input type="submit" />
+      <select value={selectedOption} onChange={event => setSelectedOption(event.target.value)}>
+        <option> </option>
+        {allOptions}
+      </select>
+      <button type="submit">Submit</button>
     </form>
-  )
+  );
 }
 
 const Content = (props) => {
+  console.log("In Content: ", props.parts);
   return (
     <div className='App-text'>
-      <Part name={props.parts[0].name} />
+      <p>Amount</p>
+      <Part currencies={props.parts} />
     </div>
   )
 }
 
-// Example of using react forms from https://www.w3schools.com/react/react_forms.asp
-/* 
-const Test = (props) => {
-  const [name, setName] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(`The name you entered was: ${name}`)
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>Enter your name:
-        <input 
-          type="text" 
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <input type="submit" />
-    </form>
-  )
-}
-*/
-
 const App = () => {
-  const course = {
-    name: 'Interest-ing',
-    parts: [
+  const currencies = {
+    name: 'Currency Conversion',
+    currency: [
       {
-        name: 'Country interest rates',
-        exercises: 10
-      }
+        name: 'USD',
+        fetched: false 
+      },
+      {
+        name: 'EUR',
+        fetched: false 
+      },
+      {
+        name: 'GBP',
+        fetched: false 
+      },
+      {
+        name: 'CAD',
+        fetched: false 
+      },
     ]
   }
 
   return (
     <div className='body'>
-      <Header course={course.name} />
-      <Content parts={course.parts}/>
+      <Header name={currencies.name} />
+      <Content parts={currencies.currency}/>
     </div>
   )
 }
