@@ -1,7 +1,7 @@
 .body {
   background-color: #f0f0f0;
-    padding: 1rem;
-  height: auto;
+  padding: 1rem;
+  height: max-content;
 }
 
 .App {
@@ -26,10 +26,36 @@
   text-align: center;
 }
 
+.Currency-container {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 2%;
+}
+
+.Form{
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  padding: 2%;
+}
+
+.item {
+  flex: 1;
+}
+
+.large {
+  flex: 1;
+  font-size: larger;
+  font-weight: bolder;
+}
+
 .App-text {
   display: flex;
   font-size: calc(3px + 2vmin);
   padding: auto;
+  margin: 5%;
   font: weight 5px; 
   flex-direction: column;
 
