@@ -10,14 +10,18 @@ test('renders learn react link', () => {
 });
 */
 
-//All testing code taken from https://testing-library.com/docs/react-testing-library/example-intro
+//All testing code taken from import App from https://create-react-app.dev/docs/running-tests/
 
-test('loads and displays greeting', async () => {
- 
+test('renders without crashing', () => {
+  render(<App />);
+})
 
+test('presses the button', () => {
   // Arrange
   render(<App />);
+  const button = screen.getByText('Press to load exchange rates')
   // Act
-  fireEvent.click(screen.getByText('Press to load exchange rates'))
+  fireEvent.click(button)
   // Assert
+  expect(button).toHaveTextContent('Loading exchange rates')
 })

@@ -59,7 +59,7 @@ const Part = (props) => {
 
       <form onSubmit={handleSubmit} className='item'>
         <p> 
-          <button type="submit">{button}</button>      
+          <button type="submit" id='1'>{button}</button>      
         </p>
       </form>
       <label className='large'>CAD       1 :  {allRates.USD} USD</label>
