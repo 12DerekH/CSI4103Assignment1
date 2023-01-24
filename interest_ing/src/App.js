@@ -63,7 +63,7 @@ const Part = (props) => {
         </p>
       </form>
       <label className='large'>CAD       1 :  {allRates.USD} USD</label>
-      <label className='large'>CAD       1 :  {allRates.GBP} EUR</label>
+      <label className='large'>CAD       1 :  {allRates.GBP} GBP</label>
       <label className='large'>CAD       1 :  {allRates.EUR} EUR</label>
     </div>
   );
