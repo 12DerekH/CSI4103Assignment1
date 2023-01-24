@@ -12,9 +12,9 @@ const Header = (props) => {
 
 const Part = (props) => {
   const [outputOption, setOutputOption] = useState('CAD');
-  const [inputAmount, setInputAmount] = useState(5);
   const [exchangeRate, setExchangeRate] = useState(1);
   const [allRates, setAllRates] = useState([]);
+  const [button, setButton] = useState("Press to load exchange rates");
 
   var myHeaders = new Headers();
   myHeaders.append("apikey", "HrOISLRc8t6NFvy8OeMQY4bdG187ki54");
@@ -25,19 +25,20 @@ const Part = (props) => {
     headers: myHeaders
   };
 
-  const allOptions = [];
-
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Output: ', outputOption);
 
     console.log("calling API")
 
+    setButton("Loading exchange rates...")
+
     fetch("https://api.apilayer.com/exchangerates_data/latest?symbols=USD%2CEUR%2CGBP&base=CAD", requestOptions)
     .then(response => response.json())
     .then(result => {
       console.log(result.rates)
       setAllRates(result.rates)
+      setButton("Press to reload exchange rates")
     }
     )
     .catch(error => console.log('error', error));
@@ -48,24 +49,17 @@ const Part = (props) => {
       setExchangeRate(allRates[1])
       console.log('Exchange rate: ', exchangeRate)
     } else {
-      console.log('failed')
+      //console.log('failed')
     }
 
   };
-
-  for(let i = 0; i < props.currencies.length; i++) {
-    allOptions.push(<option key={i}>{props.currencies[i].name}</option>)
-  }
 
   return (
     <div className='Currency-container'>
 
       <form onSubmit={handleSubmit} className='item'>
-        <p className='item'>Load exchange rates: 
-  
-        </p>   
         <p> 
-          <button type="submit">Submit</button>      
+          <button type="submit">{button}</button>      
         </p>
       </form>
       <label className='large'>CAD       1 :  {allRates.USD} USD</label>
@@ -159,10 +153,6 @@ const Content = (props) => {
   console.log("In Content: ", props.parts);
   return (
     <div className='App-text'>
-      <div className='container'>
-        <p className='item'></p>
-        <p className='item'>Conversion</p>        
-      </div>
       <Part currencies={props.parts} />
     </div>
   )
